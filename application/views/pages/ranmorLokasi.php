@@ -15,7 +15,7 @@
             //     'copy', 'csv', 'excel', 'pdf', 'print'
             // ],
             "ajax": {
-                "url": "<?php echo site_url('manajemen/daftarRanmor/getAllData') ?>",
+                "url": "<?php echo site_url('manajemen/ranmorLokasi/getAllData') ?>",
                 "type": "POST",
                 "data": {
                     '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
@@ -55,31 +55,20 @@
             .removeClass('has-success')
             .find('#text-error').remove();
         $.ajax({
-            url: "<?php echo site_url('manajemen/daftarRanmor/getById/'); ?>/" + id,
+            url: "<?php echo site_url('manajemen/ranmorLokasi/getById/'); ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(resp) {
                 data = resp.data
-                $('[name="id_laporan"]').val(data.id_laporan);
-                $('[name="kesatuan"]').val(data.id_kesatuan);
-                $('[name="no_laporan"]').val(data.no_laporan);
-                $('[name="tgl_laporan"]').val(data.tgl_laporan);
-                $('[name="jenis_kejadian"]').val(data.jenis_kejadian);
-                $('[name="lokasi"]').val(data.lokasi);
-                $('[name="tgl_kejadian"]').val(data.tgl_kejadian);
-                $('[name="modus"]').val(data.modus);
-                $('[name="no_polisi"]').val(data.no_polisi);
-                $('[name="jenis_kendaraan"]').val(data.jenis_kendaraan);
-                $('[name="merk_type"]').val(data.merk_type);
-                $('[name="tahun_pembuatan"]').val(data.tahun_pembuatan);
-                $('[name="warna"]').val(data.warna);
-                $('[name="no_rangka"]').val(data.no_rangka);
-                $('[name="no_mesin"]').val(data.no_mesin);
-                $('[name="nama_pelapor"]').val(data.nama_pelapor);
-                $('[name="alamat_pelapor"]').val(data.alamat_pelapor);
-                $('[name="nama_pemilik"]').val(data.nama_pemilik);
-                $('[name="alamat_pemilik"]').val(data.alamat_pemilik);
-                // $('[name="create_date"]').val(data.create_date);
+                $('[name="id"]').val(data.id);
+                $('[name="id_kesatuan"]').val(data.id_kesatuan);
+                $('[name="jalan"]').val(data.jalan);
+                $('[name="rumah"]').val(data.rumah);
+                $('[name="tempat_parkir"]').val(data.tempat_parkir);
+                $('[name="tempat_ibadah"]').val(data.tempat_ibadah);
+                $('[name="halaman_kantor"]').val(data.halaman_kantor);
+                $('[name="lain_lain"]').val(data.lain_lain);
+
                 $('.reset').hide();
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -100,7 +89,7 @@
             },
             function() {
                 $.ajax({
-                    url: "<?php echo site_url('manajemen/daftarRanmor/delete'); ?>/" + id,
+                    url: "<?php echo site_url('manajemen/ranmorLokasi/delete'); ?>/" + id,
                     type: "POST",
                     dataType: "JSON",
                     data: {
@@ -130,9 +119,9 @@
         var csrf_hash = ''
         var url;
         if (save_method == 'add') {
-            url = '<?php echo base_url() ?>manajemen/daftarRanmor/addData';
+            url = '<?php echo base_url() ?>manajemen/ranmorLokasi/addData';
         } else {
-            url = '<?php echo base_url() ?>manajemen/daftarRanmor/update';
+            url = '<?php echo base_url() ?>manajemen/ranmorLokasi/update';
         }
         swal({
                 title: "Apakah anda sudah yakin ?",
@@ -199,7 +188,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Daftar Kendaraan Hilang</h2>
+                        <h2>Ranmor Berdasarkan Jumlah Roda</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <button class="btn btn-primary btn-sm" onclick="tambah()">
                                 <li class="fa fa-plus"></li> Tambah Data
@@ -231,24 +220,14 @@
                                                 <th>No</th>
                                                 <th>Tools</th>
                                                 <th>Kesatuan</th>
-                                                <th>No Laporan</th>
-                                                <th>Tanggal Laporan</th>
-                                                <th>Jenis Kejadian</th>
-                                                <th>lokasi</th>
-                                                <th>Tanggal Kejadian</th>
-                                                <th>Modus</th>
-                                                <th>No Polisi</th>
-                                                <th>Jenis Kendaraan</th>
-                                                <th>Merek/Tipe</th>
-                                                <th>Tahun Pembuatan</th>
-                                                <th>Warna</th>
-                                                <th>No Rangka</th>
-                                                <th>No Mesin</th>
-                                                <th>Nama Pelapor</th>
-                                                <th>Alamat Pelapor</th>
-                                                <th>Nama Pemilik</th>
-                                                <th>Alamat Pemilik</th>
-                                                <th>Tanggal Upload</th>
+                                                <th>Jalan</th>
+                                                <th>Rumah</th>
+                                                <th>Tempat Parkir</th>
+                                                <th>Tempat Ibadah</th>
+                                                <th>Halaman Kantor</th>
+                                                <th>Lain-lain</th>
+                                                <th>Jumlah</th>
+                                                <th>Create Date</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -264,24 +243,24 @@
 
 <!-- Modal -->
 <div id="modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-md">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <li class="fa fa-list"></li> Form Data Laporan Ranmor
+                    <li class="fa fa-list"></li> Form Data Ranmor Berdasarkan Roda
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <?php echo form_open('', array('id' => 'form_inputan', 'method' => 'post')); ?>
             <div class="modal-body">
-                <?php echo form_input(array('id' => 'id_laporan', 'name' => 'id_laporan', 'type' => 'hidden')); ?>
+                <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Kesatuan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <select name="kesatuan" class="form-control has-feedback-left" id="kesatuan">
+                                <select name="id_kesatuan" id="id_kesatuan" class="form-control has-feedback-left">
                                     <option value="">Pilih Kesatuan</option>
                                     <?php foreach ($getKesatuan as $row) { ?>
                                         <option value="<?php echo $row->id ?>"><?php echo $row->nama_kesatuan ?></option>
@@ -291,124 +270,44 @@
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">No Laporan<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Jalan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="no_laporan" name="no_laporan" class="form-control has-feedback-left" required>
+                                <input type="number" value="0" name="jalan" id="jalan" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tanggal Laporan<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Rumah<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="date" id="tgl_laporan" name="tgl_laporan" class="form-control has-feedback-left" required>
+                                <input type="number" value="0" name="rumah" id="rumah" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Jenis Kejadian<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Tempat Parkir<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="jenis_kejadian" name="jenis_kejadian" class="form-control has-feedback-left" required>
+                                <input type="number" value="0" name="tempat_parkir" id="tempat_parkir" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Lokasi<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Tempat Ibadah<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="lokasi" name="lokasi" class="form-control has-feedback-left" required>
+                                <input type="number" value="0" name="tempat_ibadah" id="tempat_ibadah" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tanggal Kejadian<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Halaman Kantor<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="date" id="tgl_kejadian" name="tgl_kejadian" class="form-control has-feedback-left" required>
+                                <input type="number" value="0" name="halaman_kantor" id="halaman_kantor" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Modus<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Lain-lain<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="modus" name="modus" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">No Polisi<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="no_polisi" name="no_polisi" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Jenis Kendaraan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="jenis_kendaraan" name="jenis_kendaraan" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Merek/Type<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="merk_type" name="merk_type" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tahun Pembuatan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="tahun_pembuatan" name="tahun_pembuatan" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Warna<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="warna" name="warna" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">No Rangka<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="no_rangka" name="no_rangka" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">No Mesin<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="no_mesin" name="no_mesin" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Nama Pelapor<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="nama_pelapor" name="nama_pelapor" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Alamat Pelapor<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="alamat_pelapor" name="alamat_pelapor" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Nama Pemilik<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="nama_pemilik" name="nama_pemilik" class="form-control has-feedback-left" required>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Alamat Pemilik<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="alamat_pemilik" name="alamat_pemilik" class="form-control has-feedback-left" required>
+                                <input type="number" value="0" name="lain_lain" id="lain_lain" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -416,7 +315,7 @@
                             <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                                <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                <input type="text" name="create_date" id="create_date" value="<?php echo date('Y-m-d')  ?>" class="form-control has-feedback-left" readonly>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>

@@ -7,29 +7,30 @@ class Model_tb_daftar_ranmor extends CI_Model
     public function getAllData()
     {
         $this->datatables->select('
-        id_laporan,
-        kesatuan,
-        no_laporan,
-        tgl_laporan,
-        jenis_kejadian,
-        lokasi,
-        tgl_kejadian,
-        modus,
-        no_polisi,
-        jenis_kendaraan,
-        merk_type,
-        tahun_pembuatan,
-        warna,
-        no_rangka,
-        no_mesin,
-        nama_pelapor,
-        alamat_pelapor,
-        nama_pemilik,
-        alamat_pemilik,
-        create_date,
-        create_date
+        d.id_laporan,
+        k.nama_kesatuan,
+        d.no_laporan,
+        d.tgl_laporan,
+        d.jenis_kejadian,
+        d.lokasi,
+        d.tgl_kejadian,
+        d.modus,
+        d.no_polisi,
+        d.jenis_kendaraan,
+        d.merk_type,
+        d.tahun_pembuatan,
+        d.warna,
+        d.no_rangka,
+        d.no_mesin,
+        d.nama_pelapor,
+        d.alamat_pelapor,
+        d.nama_pemilik,
+        d.alamat_pemilik,
+        d.create_date,
+        d.create_date
         ');
-        $this->datatables->from('tb_daftar_ranmor');
+        $this->datatables->from('tb_daftar_ranmor d');
+        $this->datatables->join('tb_kesatuan k', 'k.id=d.id_kesatuan', 'left');
         return $this->datatables->generate();
     }
 

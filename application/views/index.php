@@ -65,13 +65,15 @@
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i>Kendaraan Hilang<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="general_elements.html">Berdasarkan Jumlah Roda</a></li>
-                                        <li><a href="media_gallery.html">Berd. Modus Operandi</a></li>
-                                        <li><a href="typography.html">Berd. Lokasi</a></li>
-                                        <li><a href="icons.html">Berd. Waktu</a></li>
+                                        <li><a href="<?php echo base_url('manajemen/ranmorJmlRoda') ?>">Berdasarkan Jumlah Roda</a></li>
+                                        <li><a href="<?php echo base_url('manajemen/ranmorModusOperandi') ?>">Berd. Modus Operandi</a></li>
+                                        <li><a href="<?php echo base_url('manajemen/ranmorLokasi') ?>">Berd. Lokasi</a></li>
+                                        <li><a href="<?php echo base_url('manajemen/ranmorWaktu') ?>">Berd. Waktu</a></li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-table"></i> Summary Kendaraan Hilang </a>
+                                <li><a href="<?php echo base_url('manajemen/rekapRanmor') ?>"><i class="fa fa-table"></i> Summary Kendaraan Hilang </a>
+                                </li>
+                                <li><a href="<?php echo base_url('manajemen/kesatuan') ?>"><i class="fa fa-edit"></i> Data Kesatuan </a>
                                 </li>
 
                             </ul>
