@@ -15,7 +15,7 @@
                 'excel', 'pdf', 'print'
             ],
             "ajax": {
-                "url": "<?php echo site_url('manajemen/ranmorWaktu/getAllData') ?>",
+                "url": "<?php echo site_url('manajemen/rekapRanmor/getAllData') ?>",
                 "type": "POST",
                 "data": {
                     '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
@@ -55,17 +55,15 @@
             .removeClass('has-success')
             .find('#text-error').remove();
         $.ajax({
-            url: "<?php echo site_url('manajemen/ranmorWaktu/getById/'); ?>/" + id,
+            url: "<?php echo site_url('manajemen/rekapRanmor/getById/'); ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(resp) {
                 data = resp.data
                 $('[name="id"]').val(data.id);
                 $('[name="id_kesatuan"]').val(data.id_kesatuan);
-                $('[name="w_24_06"]').val(data.w_24_06);
-                $('[name="w_06_12"]').val(data.w_06_12);
-                $('[name="w_12_18"]').val(data.w_12_18);
-                $('[name="w_18_24"]').val(data.w_18_24);
+                $('[name="hilang"]').val(data.hilang);
+                $('[name="temu"]').val(data.temu);
 
                 $('.reset').hide();
             },
@@ -87,7 +85,7 @@
             },
             function() {
                 $.ajax({
-                    url: "<?php echo site_url('manajemen/ranmorWaktu/delete'); ?>/" + id,
+                    url: "<?php echo site_url('manajemen/rekapRanmor/delete'); ?>/" + id,
                     type: "POST",
                     dataType: "JSON",
                     data: {
@@ -117,9 +115,9 @@
         var csrf_hash = ''
         var url;
         if (save_method == 'add') {
-            url = '<?php echo base_url() ?>manajemen/ranmorWaktu/addData';
+            url = '<?php echo base_url() ?>manajemen/rekapRanmor/addData';
         } else {
-            url = '<?php echo base_url() ?>manajemen/ranmorWaktu/update';
+            url = '<?php echo base_url() ?>manajemen/rekapRanmor/update';
         }
         swal({
                 title: "Apakah anda sudah yakin ?",
@@ -210,7 +208,6 @@
                             <div class="col-sm-12">
                                 <div class="card-box table-responsive">
                                     <p class="text-muted font-13 m-b-30">
-
                                     </p>
                                     <table id="data" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
@@ -218,10 +215,8 @@
                                                 <th>No</th>
                                                 <th>Tools</th>
                                                 <th>Kesatuan</th>
-                                                <th>24.00 - 06.00</th>
-                                                <th>06.00 - 12.00</th>
-                                                <th>12.00 - 18.00</th>
-                                                <th>18.00 - 24.00</th>
+                                                <th>Hilang</th>
+                                                <th>Temu</th>
                                                 <th>Jumlah</th>
                                                 <th>Create Date</th>
                                             </tr>
@@ -244,7 +239,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <li class="fa fa-list"></li> Form Data Ranmor Berdasarkan Waktu
+                    <li class="fa fa-list"></li> Rekap Ranmor
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -266,33 +261,20 @@
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">24.00 - 06.00<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Hilang<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" name="w_24_06" id="w_24_06" class="form-control has-feedback-left">
+                                <input type="number" value="0" name="hilang" id="hilang" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">06.00 - 12.00<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Temu<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" name="w_06_12" id="w_06_12" class="form-control has-feedback-left">
+                                <input type="number" value="0" name="temu" id="temu" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">12.00 - 18.00<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" name="w_12_18" id="w_12_18" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">18.00 - 24.00<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" name="w_18_24" id="w_18_24" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
+
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
