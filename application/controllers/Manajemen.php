@@ -1,5 +1,8 @@
 <?php
-
+/* 
+Developed by Fitra Arrafiq
+email us : Fitra Official (fitraarrafiq@gmail.com)
+*/
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Manajemen extends CI_Controller
