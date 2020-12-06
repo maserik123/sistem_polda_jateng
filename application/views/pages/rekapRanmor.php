@@ -184,7 +184,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Ranmor Berdasarkan Waktu</h2>
+                        <h2>Summary Kendaraan Hilang</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <button class="btn btn-primary btn-sm" onclick="tambah()">
                                 <li class="fa fa-plus"></li> Tambah Data

@@ -19,6 +19,14 @@ class Model_tb_ranmor_rekap extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function visualizeHilang()
+    {
+        $this->db->select('k.nama_kesatuan, r.hilang as tot_hilang,r.temu as tot_temu, r.jumlah');
+        $this->db->from('tb_ranmor_rekap r');
+        $this->db->join('tb_kesatuan k', 'k.id = r.id_kesatuan', 'left');
+        return $this->db->get()->result();
+    }
+
     public function addData($data)
     {
         $this->db->insert('tb_ranmor_rekap', $data);

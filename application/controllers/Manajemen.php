@@ -12,14 +12,27 @@ class Manajemen extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(array('Model_tb_daftar_ranmor', 'Model_tb_ranmor_jml_roda', 'Model_tb_ranmor_lokasi', 'Model_tb_ranmor_modus_operandi', 'Model_tb_ranmor_rekap', 'Model_tb_ranmor_waktu', 'Model_kesatuan'));
+        $this->load->model(array('User', 'Model_tb_daftar_ranmor', 'Model_tb_ranmor_jml_roda', 'Model_tb_ranmor_lokasi', 'Model_tb_ranmor_modus_operandi', 'Model_tb_ranmor_rekap', 'Model_tb_ranmor_waktu', 'Model_kesatuan'));
     }
 
     public function index()
     {
-        $view['title']    = 'Home';
-        $view['pageName'] = 'home';
-
+        $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
+        $temp = $this->User->getuserById($this->session->userdata('id'));
+        if (!$this->session->userdata('loggedIn')) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in untuk mengakses sistem !');
+            redirect('/auth/');
+        } else if ($temp[0]->online_status != "online") {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else if (count_time_since(strtotime($userOnById[0]->time_online)) > 7100) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else {
+            $view['title']    = 'Home';
+            $view['pageName'] = 'home';
+            $view['visualize'] = $this->Model_tb_ranmor_rekap->visualizeHilang();
+        }
         $this->load->view('index', $view);
     }
 
