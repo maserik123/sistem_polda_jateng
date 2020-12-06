@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2020 at 10:58 AM
+-- Generation Time: Dec 06, 2020 at 09:55 AM
 -- Server version: 5.7.32-0ubuntu0.18.04.1
 -- PHP Version: 7.1.33-24+ubuntu18.04.1+deb.sury.org+1
 
@@ -70,6 +70,13 @@ CREATE TABLE `tb_daftar_ranmor` (
   `create_date` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_daftar_ranmor`
+--
+
+INSERT INTO `tb_daftar_ranmor` (`id_laporan`, `id_kesatuan`, `no_laporan`, `tgl_laporan`, `jenis_kejadian`, `lokasi`, `tgl_kejadian`, `modus`, `no_polisi`, `jenis_kendaraan`, `merk_type`, `tahun_pembuatan`, `warna`, `no_rangka`, `no_mesin`, `nama_pelapor`, `alamat_pelapor`, `nama_pemilik`, `alamat_pemilik`, `create_date`) VALUES
+(1, '2', '23', '2020-12-09', 'sdff', 'sdf', '2020-12-04', 'sdf', 'sdfsdf', 'sdfsdf', 'dsfdsf', 432, 'sdf', 'dsfdsf', 'sdfsdf', 'sdfs', 'dfsd', 'fsdf', 'fsdfs', '2020-12-04');
+
 -- --------------------------------------------------------
 
 --
@@ -109,7 +116,6 @@ CREATE TABLE `tb_ranmor_jml_roda` (
 --
 
 INSERT INTO `tb_ranmor_jml_roda` (`id`, `id_kesatuan`, `roda_4`, `roda_2`, `jumlah`, `create_date`) VALUES
-(1, '2', '31', '22', '53', '2020-12-01'),
 (2, '3', '2', '3', '5', '2020-12-01');
 
 -- --------------------------------------------------------
@@ -198,6 +204,45 @@ CREATE TABLE `tb_ranmor_waktu` (
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `oauth_provider` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `oauth_uid` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_number` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `address` text COLLATE utf8_unicode_ci NOT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locale` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` enum('administrator','manajer','unit','ka_gudang','office') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `block_status` int(3) NOT NULL,
+  `online_status` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `time_online` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time_offline` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_unit` varchar(45) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `oauth_provider`, `oauth_uid`, `first_name`, `last_name`, `username`, `password`, `email`, `phone_number`, `address`, `gender`, `locale`, `picture`, `link`, `role`, `created`, `modified`, `block_status`, `online_status`, `time_online`, `time_offline`, `id_unit`) VALUES
+(42, '', '', 'First', 'Administrator', 'admin_okura', '0192023a7bbd73250516f069df18b500', '', '081562442811', 'Jalan Dr. Setia Budhi No. 57, Rintis, Lima Puluh, Kota Pekanbaru, Riau (28141)', NULL, NULL, NULL, '', 'administrator', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'offline', '2020-12-06 02:50:55', '2020-12-06 02:50:55', ''),
+(49, '', '', 'Admin', 'Office', 'office123', '34abc02a6df39facbf57b09fc68bb256', '', '081199223344', 'Jalan Dr. Setia Budhi No. 57, Rintis, Lima Puluh, Kota Pekanbaru, Riau (28141)', NULL, NULL, NULL, '', 'office', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'online', '2020-08-02 03:51:33', '2020-08-02 03:51:33', 'U-001');
+
 --
 -- Indexes for dumped tables
 --
@@ -251,6 +296,12 @@ ALTER TABLE `tb_ranmor_waktu`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -264,7 +315,7 @@ ALTER TABLE `tb_admin`
 -- AUTO_INCREMENT for table `tb_daftar_ranmor`
 --
 ALTER TABLE `tb_daftar_ranmor`
-  MODIFY `id_laporan` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_laporan` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_kesatuan`
@@ -282,13 +333,13 @@ ALTER TABLE `tb_ranmor_jml_roda`
 -- AUTO_INCREMENT for table `tb_ranmor_lokasi`
 --
 ALTER TABLE `tb_ranmor_lokasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_ranmor_modus_operandi`
 --
 ALTER TABLE `tb_ranmor_modus_operandi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_ranmor_rekap`
@@ -300,7 +351,13 @@ ALTER TABLE `tb_ranmor_rekap`
 -- AUTO_INCREMENT for table `tb_ranmor_waktu`
 --
 ALTER TABLE `tb_ranmor_waktu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
